@@ -20,16 +20,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml'
-            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
-        }
-        failure {
-            mail to: 'neerajbijalwan96@gmail.com',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
-        }
-    }
 }
