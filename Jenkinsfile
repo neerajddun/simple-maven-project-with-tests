@@ -8,19 +8,18 @@ pipeline {
             }
         }
         
-      // stage('Unit Test') {
+        stage('Unit Test') {
             steps {
                 sh 'mvn test'
             }
-       // }
+        }
         
         stage('Build') {
             steps {
                 sh 'mvn clean install'
             }
         }
-        
-        
+    }
 
     post {
         always {
