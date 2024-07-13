@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven_3.9.8' // Name configured in Global Tool Configuration
-        jdk 'jdk-11' // Name configured in Global Tool Configuration
-    }
-
     stages {
         stage('Checkout') {
             steps {
