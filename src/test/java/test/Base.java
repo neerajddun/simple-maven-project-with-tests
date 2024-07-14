@@ -24,24 +24,31 @@
 
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import org.junit.internal.AssumptionViolatedException;
 import java.util.logging.Logger;
 
-class Base {
+public class Base {
 
     private static final Logger logger = Logger.getLogger(Base.class.getName());
 
     protected void run() {
         double r = Math.random();
-        if (r < 0.1) {
-            logger.warning("Test failed due to random failure condition.");
-            fail("oops");
-        } else if (r < 0.2) {
-            logger.info("Test skipped due to random skip condition.");
-            throw new AssumptionViolatedException("skipping");
-        } else {
-            logger.info("Test passed.");
+        try {
+            if (r < 0.1) {
+                logger.warning("Test failed due to random failure condition.");
+                fail("oops");
+            } else if (r < 0.2) {
+                logger.info("Test skipped due to random skip condition.");
+                throw new AssumptionViolatedException("skipping");
+            } else {
+                logger.info("Test passed.");
+            }
+        } catch (AssertionError e) {
+            // Handle AssertionError
+            logger.warning("AssertionError caught: " + e.getMessage());
+            // You can log additional details or handle it as needed
+            throw e; // Re-throw the AssertionError to propagate it
         }
     }
 }
