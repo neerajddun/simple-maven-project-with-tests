@@ -21,6 +21,7 @@ pipeline {
                         sh 'mvn verify -DskipTests=false -Pintegration-test'
                     }
                 }
+            }
 
         stage('Maven Build') {
             steps {
