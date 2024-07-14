@@ -44,10 +44,14 @@ public class Base {
             } else {
                 logger.info("Test passed.");
             }
+        } catch (AssumptionViolatedException e) {
+            // Handle test skip condition
+            logger.info("Test was skipped: " + e.getMessage());
+            // Optionally re-throw or handle as needed
         } catch (AssertionError e) {
             // Handle AssertionError
             logger.warning("AssertionError caught: " + e.getMessage());
-            // You can log additional details or handle it as needed
+            // Optionally handle or log more details before re-throwing
             throw e; // Re-throw the AssertionError to propagate it
         }
     }
