@@ -27,13 +27,23 @@ package test;
 import static org.junit.Assert.fail;
 import org.junit.internal.AssumptionViolatedException;
 import java.util.logging.Logger;
+import java.util.Random;
 
 public class Base {
 
     private static final Logger logger = Logger.getLogger(Base.class.getName());
+    private Random random;
+
+    public Base() {
+        this.random = new Random();
+    }
+
+    public Base(Random random) {
+        this.random = random;
+    }
 
     protected void run() {
-        double r = Math.random();
+        double r = random.nextDouble();
         try {
             if (r < 0.1) {
                 logger.warning("Test failed due to random failure condition.");
@@ -45,14 +55,10 @@ public class Base {
                 logger.info("Test passed.");
             }
         } catch (AssumptionViolatedException e) {
-            // Handle test skip condition
             logger.info("Test was skipped: " + e.getMessage());
-            // Optionally re-throw or handle as needed
         } catch (AssertionError e) {
-            // Handle AssertionError
             logger.warning("AssertionError caught: " + e.getMessage());
-            // Optionally handle or log more details before re-throwing
-            throw e; // Re-throw the AssertionError to propagate it
+            throw e;
         }
     }
 }
